@@ -6,8 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 from rest_framework import status
 from rest_framework.decorators import action
-from django.utils import timezone
-from datetime import date, datetime
+from datetime import date
 
 from clinic.serializer import UserCreationSerializer,DoctorSerializer,AppointmentSerializer
 from clinic.models import User,Doctor,Appointment
