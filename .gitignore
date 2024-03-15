@@ -1,0 +1,17 @@
+# Python
+*.pyc
+__pycache__/
+
+# Django
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+
+# Visual Studio Code
+.vscode/
+
+# Others
+.DS_Store
+node_modules/
