@@ -6,13 +6,13 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 from rest_framework import status
 from rest_framework.decorators import action
-from datetime import date
+
 
 from clinic.serializer import UserCreationSerializer,DoctorSerializer,AppointmentSerializer,AppointmentViewSerializer
 from clinic.models import User,Doctor,Appointment
 
 
-#this is the view for registration
+#this is the view for registration 
 class UserCreateView(APIView):
     def post(self,request,*args,**kwargs):
         serializer=UserCreationSerializer(data=request.data)
@@ -63,10 +63,6 @@ class AppointmentView(ViewSet):
         user_id=request.user.id
         user_obj=User.objects.get(id=user_id)
         if serializer.is_valid():
-            appointment_date=serializer.validated_data.get("appointment_date")
-            todays_date=date.today()
-            if appointment_date < todays_date:
-                return Response(data={"msg": "Appointment date is invalid..plz select a valid date"},status=status.HTTP_400_BAD_REQUEST)
             serializer.save(user=user_obj)
             return Response(data=serializer.data)
         else:

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.validators import MinValueValidator
 
 class Doctor(models.Model):
     name=models.CharField(max_length=100,blank=False,null=False)
@@ -12,7 +13,7 @@ class Doctor(models.Model):
     
 class Appointment(models.Model):
     patient_name=models.CharField(max_length=100,blank=False,null=False)
-    age=models.IntegerField(blank=False,null=False)
+    age=models.IntegerField(blank=False,null=False,validators=[MinValueValidator(0)])
     appointment_date=models.DateField(blank=False,null=False)
     doctor=models.ForeignKey(Doctor,on_delete=models.CASCADE,blank=False,null=False)
     user=models.ForeignKey(User,on_delete=models.CASCADE,blank=False,null=False)
