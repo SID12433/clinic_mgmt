@@ -19,8 +19,14 @@ class DoctorSerializer(serializers.ModelSerializer):
         fields="__all__"
 
 class AppointmentSerializer(serializers.ModelSerializer):
-    doctor=serializers.CharField(read_only=True)
     user=serializers.CharField(read_only=True)
+    class Meta:
+        model=Appointment
+        fields="__all__"
+        
+class AppointmentViewSerializer(serializers.ModelSerializer):
+    user=serializers.CharField(read_only=True)
+    doctor=DoctorSerializer()
     class Meta:
         model=Appointment
         fields="__all__"
