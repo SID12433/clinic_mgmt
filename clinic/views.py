@@ -49,6 +49,19 @@ class DoctorView(ViewSet):
         qs=Doctor.objects.get(id=id)
         serializer=DoctorSerializer(qs)
         return Response(data=serializer.data)
+    
+    @action(methods=['post'],detail=True)
+    def create_appointment(self,request,*args,**kwargs):
+        serializer=AppointmentSerializer(data=request.data)
+        user_id=request.user.id
+        id=kwargs.get('pk')
+        doctor_obj=Doctor.objects.get(id=id)
+        user_obj=User.objects.get(id=user_id)
+        if serializer.is_valid():
+            serializer.save(user=user_obj,doctor=doctor_obj)
+            return Response(data=serializer.data)
+        else:
+            return Response(data=serializer.errors)  
 
 
         
