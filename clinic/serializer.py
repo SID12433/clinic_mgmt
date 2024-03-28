@@ -25,6 +25,13 @@ class AppointmentSerializer(serializers.ModelSerializer):
         model=Appointment
         fields="__all__"
         
+class AppointmentActionSerializer(serializers.ModelSerializer):
+    user=serializers.CharField(read_only=True)
+    doctor=serializers.CharField(read_only=True)
+    class Meta:
+        model=Appointment
+        fields="__all__"
+        
         
     def validate_appointment_date(self, value):
         todays_date=date.today()

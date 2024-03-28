@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 
 
-from clinic.serializer import UserCreationSerializer,DoctorSerializer,AppointmentSerializer,AppointmentViewSerializer
+from clinic.serializer import UserCreationSerializer,DoctorSerializer,AppointmentSerializer,AppointmentActionSerializer,AppointmentViewSerializer
 from clinic.models import User,Doctor,Appointment
 
 
@@ -50,9 +50,12 @@ class DoctorView(ViewSet):
         serializer=DoctorSerializer(qs)
         return Response(data=serializer.data)
     
+    
+    authentication_classes=[authentication.TokenAuthentication]
+    permission_classes=[permissions.IsAuthenticated]
     @action(methods=['post'],detail=True)
     def create_appointment(self,request,*args,**kwargs):
-        serializer=AppointmentSerializer(data=request.data)
+        serializer=AppointmentActionSerializer(data=request.data)
         user_id=request.user.id
         id=kwargs.get('pk')
         doctor_obj=Doctor.objects.get(id=id)
